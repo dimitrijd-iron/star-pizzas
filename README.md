@@ -1,5 +1,7 @@
 # Star Pizzas
 
+![pizza-big](/Users/dimitrij/ironhack/star-pizzas/img/pizza-big.jpeg)
+
 
 
 ## Description
