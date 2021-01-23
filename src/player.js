@@ -5,28 +5,40 @@ class Player {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
     this.starShips = starShips;
-    this.size = 10; //  this.width   this.height
+    this.size = 20; //  this.width   this.height
     this.x = Math.floor(this.canvas.width / 2);
     this.y = Math.floor(this.canvas.height / 2);
-    this.direction = 0; // in fraction of unity
-    this.rotationStep = 1 / 16; // it should be 1/2^n in integers
+    this.xSpeed = 0;
+    this.ySpeed = 0;
+    this.direction = 0; // 0 to 359 degrees; 0 is north / "top"
+    this.rotationStep = 6; // in 360 degrees
+    this.inertia = 0.995;
     this.speed = 1;
+    this.boostersPower = 1;
+    this.boostersOn = false;
   }
 
   setDirection(directionChange) {
     console.log("setting direction");
-    this.direction += 1 + directionChange * this.rotationStep;
-    this.direction %= 1;
-    console.log(Math.floor(this.direction * 360));
+    this.direction += directionChange * this.rotationStep;
+    this.direction %= 360;
   }
 
   updatePosition() {
     // console.log("updating position");
-    this.x += Math.sin(Math.PI * this.direction) * this.speed;
+    // apply inertia
+    this.xSpeed *= this.inertia;
+    this.ySpeed *= this.inertia;
+    this.x += this.xSpeed;
     this.x %= this.canvas.width;
-    this.y += Math.cos(Math.PI * this.direction) * this.speed;
+    this.y += this.ySpeed;
     this.y %= this.canvas.height;
-    // console.log(this.x, this.y);
+  }
+
+  boosters() {
+    this.boostersOn = true;
+    this.xSpeed += Math.sin((this.direction / 180) * Math.PI);
+    this.ySpeed -= Math.cos((this.direction / 180) * Math.PI);
   }
 
   // handleScreenCollision() {
@@ -69,8 +81,11 @@ class Player {
   // }
 
   draw() {
-    this.ctx.fillStyle = "#66D3FA";
-    // this.ctx.fillRect(x, y, width, height);
-    this.ctx.fillRect(this.x, this.y, this.size, this.size);
+    this.ctx.save();
+    this.ctx.translate(this.x, this.y);
+    this.ctx.rotate((this.direction / 180) * Math.PI);
+    this.ctx.drawImage(this.boostersOn ? boosters : pizza, 0, 0);
+    this.ctx.restore();
+    this.boostersOn = false;
   }
 }

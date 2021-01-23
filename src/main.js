@@ -1,10 +1,23 @@
 "use strict";
 
+/*
+
+- load images
+- create screens
+- create game
+- greate player
+- move players
+
+*/
+
 let game; // store instance of the current Game
 let splashScreen; // Start Game Screen - element reference
 let gameScreen; // Game Screen - element reference
 let gameOverScreen; //  Game Over Screen - element reference
 let cnt = 0;
+let pizza;
+let mozzarella;
+let boosters;
 
 // Helper function used to create DOM elements out of a string
 function buildDom(htmlString) {
@@ -14,7 +27,10 @@ function buildDom(htmlString) {
   return result;
 }
 
-// -- splash (start) screen
+/* 
+ -- splash (start) screen
+    low priority
+ */
 
 function createSplashScreen() {
   splashScreen = buildDom(`
@@ -23,19 +39,23 @@ function createSplashScreen() {
       <button>Start Baking</button>
     </main>
   `);
-
   document.body.appendChild(splashScreen);
   const startButton = splashScreen.querySelector("button");
   // make it a pizza!
-
   startButton.addEventListener("click", startGame);
 }
-
 function removeSplashScreen() {
   splashScreen.remove();
 }
 
-// -- game screen
+/* 
+ -- splash (start) screen
+
+ high priority
+  - make it round
+  - with crust!
+
+*/
 
 function createGameScreen() {
   gameScreen = buildDom(`
@@ -91,7 +111,9 @@ function startGame() {
   if (gameOverScreen) {
     removeGameOverScreen();
   }
+
   removeSplashScreen();
+
   createGameScreen();
 
   game = new Game();
@@ -105,6 +127,14 @@ function endGame() {
   gameScreen.remove();
   createGameOverScreen();
 }
+
+/* loads assets */
+pizza = new Image();
+pizza.src = "./img/pizza-starship.png";
+mozzarella = new Image();
+mozzarella.src = "./img/mozzarella.png";
+boosters = new Image();
+boosters.src = "./img/boosters.png";
 
 // Run the function once all of the resources are loaded
 window.addEventListener("load", createSplashScreen);
