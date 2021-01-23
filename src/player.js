@@ -29,13 +29,13 @@ class Player {
     // apply inertia
     this.xSpeed *= this.inertia;
     this.ySpeed *= this.inertia;
-    this.x += this.xSpeed;
+    this.x += this.xSpeed + this.canvas.width;
     this.x %= this.canvas.width;
-    this.y += this.ySpeed;
+    this.y += this.ySpeed + this.canvas.height;
     this.y %= this.canvas.height;
   }
 
-  boosters() {
+  useBoosters() {
     this.boostersOn = true;
     this.xSpeed += Math.sin((this.direction / 180) * Math.PI);
     this.ySpeed -= Math.cos((this.direction / 180) * Math.PI);
@@ -83,8 +83,10 @@ class Player {
   draw() {
     this.ctx.save();
     this.ctx.translate(this.x, this.y);
+    this.ctx.scale(0.2, 0.2);
     this.ctx.rotate((this.direction / 180) * Math.PI);
-    this.ctx.drawImage(this.boostersOn ? boosters : pizza, 0, 0);
+    let img = this.boostersOn ? boosters : pizza;
+    this.ctx.drawImage(img, 0, 0);
     this.ctx.restore();
     this.boostersOn = false;
   }

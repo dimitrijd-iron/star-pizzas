@@ -54,7 +54,7 @@ class Game {
           break;
         case "ArrowUp":
           console.log("boosters on!");
-          this.player.boosters();
+          this.player.useBoosters();
           break;
         case " ":
           console.log("FIRE!");
