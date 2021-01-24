@@ -1,13 +1,8 @@
 "use strict";
 
 /*
-
-- load images
-- create screens
-- create game
-- greate player
-- move players
-
+author: github.com/iron-dimitrijd
+license: GNU-GPL 3.0
 */
 
 // source organization, credit and thanks:
@@ -20,6 +15,9 @@ let gameOverScreen; //  Game Over Screen - element reference
 let cnt = 0;
 let pizza;
 let mozzarella;
+let tomato;
+let basil;
+let pineapple;
 let boosters;
 let boostersSound;
 
@@ -138,6 +136,13 @@ pizza = new Image();
 pizza.src = "./img/pizza-starship.png";
 mozzarella = new Image();
 mozzarella.src = "./img/mozzarella.png";
+tomato = new Image();
+tomato.src = "./img/tomato.png";
+basil = new Image();
+basil.src = "./img/basil.png";
+pineapple = new Image();
+pineapple.src = "./img/pineapple.png";
+
 boosters = new Image();
 boosters.src = "./img/boosters.png";
 

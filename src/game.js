@@ -4,11 +4,13 @@ class Game {
   constructor() {
     this.canvas = undefined;
     this.ctx = undefined;
-    this.asteroids = [];
+    this.goodies = [];
+    this.baddies = [];
+    this.bullets = [];
+    this.starBase = undefined;
     this.player = undefined;
     this.gameIsOver = false;
     this.score = 0;
-
     this.gameScreen = undefined;
     this.starShipsElement = undefined;
     this.ingredientsElement = undefined;
@@ -35,11 +37,7 @@ class Game {
     // Create the new Player - Cap Slice
     this.player = new Player(this.canvas, 3);
 
-    // this.player.draw();
-
-    // Arrow function doesn't value `this` inside.
-    // Arrow function takes the value of this form the surrounding scope (place)
-    // where it is created
+    this.player.draw();
 
     function handleKeyDown(event) {
       console.log(event.key);
@@ -77,37 +75,61 @@ class Game {
     this.startLoop();
   }
 
+  filterByPosition(item) {
+    // console.log("filtering by position");
+    if (item.x < 0 - 50 || item.x > game.canvas.width + 50) return false;
+    if (item.y < 0 - 50 || item.y > game.canvas.height + 50) return false;
+    return true;
+  }
+
   startLoop() {
     const loop = function () {
       // 1. UPDATE THE STATE OF PLAYER AND ENEMIES
       //   this.score += 5;
       this.updateGameStats();
 
-      //   // 1.1. Create new enemies - randomly
-      //   if (Math.random() > 0.97) {
-      //     // 0 - 0.991
+      // 1.1. Create new baddies - randomly
+      if (Math.random() > 0.97) {
+        const randomY = Math.random() * this.canvas.height;
+        const newBaddie = new Baddies(this.canvas, randomY, 5);
+        this.baddies.push(newBaddie);
+      }
 
-      //     const randomY = Math.random() * this.canvas.height;
-      //     const newEnemy = new Enemy(this.canvas, randomY, 5);
-
-      //     this.enemies.push(newEnemy);
-      //   }
+      // 1.1. Create new goodies - randomly
+      if (Math.random() > 0.97) {
+        const randomY = Math.random() * this.canvas.height;
+        const randomType = Math.random();
+        const goodiesType =
+          randomType < 0.5
+            ? "tomato"
+            : randomType < 0.9
+            ? "mozzarella"
+            : "basil";
+        const newGoodie = new Goodies(
+          this.canvas,
+          goodiesType,
+          this.canvas.width + 50,
+          randomY,
+          5
+        );
+        this.goodies.push(newGoodie);
+      }
 
       //   // 1.2 Check if the player had hit any enemy
       //   this.checkCollisions();
 
-      // 1.3 Update the player and check the screen collision
+      // 1.3.1 Update the player and check the screen collision
       this.player.updatePosition();
-      //   this.player.handleScreenCollision();
 
-      // 1.4 Move existing the enemies
-      // 1.5 Remove the enemies that are outside of the screen
-      //   const updatedEnemies = this.enemies.filter(function (enemyObj) {
-      //     enemyObj.updatePosition();
-      //     return enemyObj.isInsideScreen(); // false - filter out
-      //   });
+      // 1.3.2 Update the baddies
+      const updatedBaddies = this.baddies.filter(this.filterByPosition);
+      this.baddies.forEach((el) => el.updatePosition());
+      this.baddies = updatedBaddies;
 
-      // this.enemies = updatedEnemies;
+      // 1.3.3 Update the goodies
+      const updatedGoodies = this.goodies.filter(this.filterByPosition);
+      this.goodies.forEach((el) => el.updatePosition());
+      this.goodies = updatedGoodies;
 
       // 2. CLEAR THE CANVAS - clear the previous frame
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -116,10 +138,22 @@ class Game {
       // 3.1 Draw the player
       this.player.draw();
 
-      // 3.2 Draw all of the enemies
-      // this.enemies.forEach(function (enemyObj) {
-      //   enemyObj.draw();
-      // });
+      // 3.2 Draw all of the baddies
+      this.baddies.forEach(function (baddie) {
+        // console.log("drawing baddies");
+        baddie.draw();
+      });
+
+      // 3.2 Draw all of the goodies
+      this.goodies.forEach(function (goodie) {
+        // console.log("drawing goodies");
+        goodie.draw();
+      });
+
+      // 3.2 Draw all of the bullet
+      this.bullets.forEach(function (bullet) {
+        bullet.draw();
+      });
 
       // 4. REPEAT
       if (!this.gameIsOver) {

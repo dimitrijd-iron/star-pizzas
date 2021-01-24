@@ -26,11 +26,10 @@ class Player {
   }
 
   updatePosition() {
-    // console.log("updating position");
     // apply inertia
     this.xSpeed *= this.inertia;
     this.ySpeed *= this.inertia;
-    // add module to module
+    // add module to module idea credit
     // credit: https://github.com/jedimahdi/asteroids-game/blob/master/src/utils/base.js
     this.x += this.xSpeed + this.canvas.width;
     this.x %= this.canvas.width;
