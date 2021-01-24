@@ -14,13 +14,14 @@ class Player {
     this.rotationStep = 6; // in 360 degrees
     this.inertia = 0.995;
     this.speed = 1;
-    this.boostersPower = 1;
+
     this.boostersOn = false;
+    this.boosterTimer = undefined;
   }
 
   setDirection(directionChange) {
     console.log("setting direction");
-    this.direction += directionChange * this.rotationStep;
+    this.direction -= directionChange * this.rotationStep + 360;
     this.direction %= 360;
   }
 
@@ -29,6 +30,8 @@ class Player {
     // apply inertia
     this.xSpeed *= this.inertia;
     this.ySpeed *= this.inertia;
+    // add module to module
+    // credit: https://github.com/jedimahdi/asteroids-game/blob/master/src/utils/base.js
     this.x += this.xSpeed + this.canvas.width;
     this.x %= this.canvas.width;
     this.y += this.ySpeed + this.canvas.height;
@@ -36,6 +39,10 @@ class Player {
   }
 
   useBoosters() {
+    if (this.boosterTimer !== undefined) {
+      clearTimeout(this.boosterTimer);
+      this.boosterTimer = undefined;
+    }
     this.boostersOn = true;
     this.xSpeed += Math.sin((this.direction / 180) * Math.PI);
     this.ySpeed -= Math.cos((this.direction / 180) * Math.PI);
@@ -81,13 +88,26 @@ class Player {
   // }
 
   draw() {
-    this.ctx.save();
-    this.ctx.translate(this.x, this.y);
-    this.ctx.scale(0.2, 0.2);
-    this.ctx.rotate((this.direction / 180) * Math.PI);
     let img = this.boostersOn ? boosters : pizza;
-    this.ctx.drawImage(img, 0, 0);
-    this.ctx.restore();
-    this.boostersOn = false;
+    drawImageRotated(
+      this.ctx,
+      img,
+      this.x,
+      this.y,
+      0.15,
+      (this.direction / 180) * Math.PI
+    );
+    if (this.boostersOn) {
+      boostersSound.play();
+      this.boosterTimer = setTimeout(() => (this.boostersOn = false), 1000);
+    }
   }
+}
+
+function drawImageRotated(ctx, img, x, y, scale, rot) {
+  // Credit: https://stackoverflow.com/a/50052594
+  ctx.setTransform(scale, 0, 0, scale, x, y);
+  ctx.rotate(rot);
+  ctx.drawImage(img, -img.width / 2, -img.height / 2);
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
 }
