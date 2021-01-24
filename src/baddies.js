@@ -10,7 +10,7 @@ class Baddies {
 
   draw() {
     this.ctx.save();
-    this.ctx.drawImage(pineapple, this.x, this.y, 90, 90);
+    this.ctx.drawImage(pineapple, this.x, this.y, 140, 140);
     this.ctx.restore();
   }
 

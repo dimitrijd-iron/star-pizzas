@@ -27,7 +27,6 @@ class Goodies {
         img = basil;
         break;
     }
-    console.log(this.type, this.x, this.y);
     this.ctx.drawImage(img, this.x, this.y, 60, 60);
     this.ctx.restore();
   }

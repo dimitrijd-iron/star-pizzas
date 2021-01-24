@@ -14,13 +14,12 @@ class Player {
     this.rotationStep = 6; // in 360 degrees
     this.inertia = 0.995;
     this.speed = 1;
-
     this.boostersOn = false;
     this.boosterTimer = undefined;
+    this.bullets = [];
   }
 
   setDirection(directionChange) {
-    console.log("setting direction");
     this.direction -= directionChange * this.rotationStep + 360;
     this.direction %= 360;
   }
@@ -45,6 +44,12 @@ class Player {
     this.boostersOn = true;
     this.xSpeed += Math.sin((this.direction / 180) * Math.PI);
     this.ySpeed -= Math.cos((this.direction / 180) * Math.PI);
+  }
+
+  fire() {
+    console.log("player fired!");
+    const firedBullet = new Bullets(this);
+    this.bullets.push(firedBullet);
   }
 
   // handleScreenCollision() {

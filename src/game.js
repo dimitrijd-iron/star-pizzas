@@ -54,12 +54,12 @@ class Game {
           console.log("boosters on!");
           this.player.useBoosters();
           break;
-        case " ":
-          console.log("FIRE!");
-          // this.player.fire();
+        case "F":
+        case "f":
+          this.player.fire();
           break;
-        case "P":
-        case "p":
+        case "S":
+        case "s":
           console.log("pizza shields up!");
           // this.player.shieldsOn();
           break;
@@ -131,6 +131,11 @@ class Game {
       this.goodies.forEach((el) => el.updatePosition());
       this.goodies = updatedGoodies;
 
+      // 1.3.3 Update the bullets
+      const updatedBullets = this.player.bullets.filter(this.filterByPosition);
+      this.player.bullets.forEach((el) => el.updatePosition());
+      this.player.bullets = updatedBullets;
+
       // 2. CLEAR THE CANVAS - clear the previous frame
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -151,7 +156,7 @@ class Game {
       });
 
       // 3.2 Draw all of the bullet
-      this.bullets.forEach(function (bullet) {
+      this.player.bullets.forEach(function (bullet) {
         bullet.draw();
       });
 
