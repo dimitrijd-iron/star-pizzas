@@ -91,7 +91,7 @@ class Game {
       // 1.1. Create new baddies - randomly
       if (Math.random() > 0.97) {
         const randomY = Math.random() * this.canvas.height;
-        const newBaddie = new Baddies(this.canvas, randomY, 5);
+        const newBaddie = new Baddies(this.canvas, randomEntryTensor(this));
         this.baddies.push(newBaddie);
       }
 
@@ -200,4 +200,22 @@ class Game {
     // this.starShipsElement.textContent = this.player.starships;
     // this.ingredientsElement.textContent = this.ingredients;
   }
+}
+
+// helper function to generate an entry vector for goodies & baddies
+function randomEntryTensor(game) {
+  // console.log(game);
+  const ray = Math.max(game.canvas.width, game.canvas.width) / 2 + 50;
+  const entryPointX =
+    Math.sin(Math.random() * 2 * Math.PI) * ray + game.canvas.width / 2;
+  const entryPointY =
+    Math.cos(Math.random() * 2 * Math.PI) * ray + game.canvas.height / 2;
+  const entrySpeedX = Math.random() * 2 + 1;
+  const entrySpeedY = Math.random() * 2 + 1;
+  return {
+    x: entryPointX,
+    y: entryPointY,
+    speedX: entrySpeedX,
+    speedY: entrySpeedY,
+  };
 }

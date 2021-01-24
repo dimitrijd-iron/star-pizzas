@@ -1,11 +1,12 @@
 class Baddies {
-  constructor(canvas, y, speed) {
+  constructor(canvas, entryTensor) {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
     this.size = 20;
-    this.x = canvas.width + 50;
-    this.y = y;
-    this.speed = speed;
+    this.x = entryTensor.x;
+    this.y = entryTensor.y;
+    this.speedX = entryTensor.speedX;
+    this.speedY = entryTensor.speedY;
   }
 
   draw() {
@@ -15,6 +16,7 @@ class Baddies {
   }
 
   updatePosition() {
-    this.x = this.x - this.speed;
+    this.x = this.x + this.speedX;
+    this.y = this.y + this.speedY;
   }
 }
