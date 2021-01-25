@@ -36,7 +36,7 @@ Task definition in order of priority
 
 ### Git
 [Repo](http://github.com/dimitrijd-iron/star-pizzas)
-[App](http://github.com/)
+[App](http://dimitrijd-iron.github.io/star-pizzas/)
 
 
 ## Wireframes
@@ -44,5 +44,5 @@ Wireframes in Miro [Miro](https://miro.com/app/board/o9J_lX36If8=/)
 
 
 ### Slides
-[Google Doc public slides](https://docs.google.com/presentation/d/10eIaSrlSElpMhGrp7n-jZ9cL4gSoz1k0Xopz1G6R_yE/edit?usp=sharing)
+[Google Doc public slides](https://docs.google.com/presentation/d/1yvI4v5E-aEjLbRJ4KNFUixbmJoJipNTyYwl6yWh9FoQ/edit?usp=sharinga)
 
