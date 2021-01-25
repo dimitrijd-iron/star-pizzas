@@ -40,7 +40,7 @@ class Game {
     this.canvas.height = containerHeight;
 
     // Create the new Player - Cap Slice
-    this.player = new Player(this.canvas, 5);
+    this.player = new Player(this.canvas, 3);
 
     this.player.draw();
 
@@ -102,7 +102,7 @@ class Game {
       }
 
       // 1.1. Create new goodies - randomly
-      if (Math.random() > 0.8 + 1) {
+      if (Math.random() > 0.8) {
         const randomY = Math.random() * this.canvas.height;
         const randomType = Math.random();
         const goodiesType =
@@ -185,27 +185,53 @@ class Game {
         // Move the enemy off the screen, to the left
         baddie.x = +100000;
         if (this.player.lives <= 0) {
-          this.gameOver(); // TODO
+          this.gameOver();
         }
       }
     }, this);
 
     for (let baddie of this.baddies)
       for (let bullet of this.player.bullets) {
-        if (bullet.didCollide(baddie)) baddie.x = +100000;
+        if (bullet.didCollide(baddie)) {
+          baddie.x = 100000;
+          bullet.x = 100000;
+        }
       }
+
+    for (let goodie of this.goodies) {
+      if (this.player.didCollide(goodie)) {
+        let points;
+        console.log(goodie);
+        switch (goodie.type) {
+          case "mozzarella":
+            points = 10;
+            break;
+          case "tomato":
+            points = 5;
+            break;
+          case "basil":
+            points = 25;
+            break;
+            defualt: alert("unknown goodie!!");
+        }
+        console.log("got ", points, " points!");
+        this.player.points += points;
+        goodie.x = +100000;
+      }
+    }
   }
 
   gameOver() {
     this.gameIsOver = true;
     console.log("GAME OVER");
-    // show the end game screen
     endGame();
   }
 
   updateGameStats() {
-    // this.starShipsElement.textContent = this.player.starships;
-    // this.ingredientsElement.textContent = this.ingredients;
+    let livesElement = document.getElementById("lives-value");
+    livesElement.textContent = " " + this.player.lives + " ";
+    let pointsElement = document.getElementById("points-value");
+    pointsElement.textContent = "0000" + this.player.points;
   }
 }
 

@@ -66,13 +66,13 @@ function createGameScreen() {
         <canvas></canvas>
       </div>
       <footer>
-      <div class="starships">
+      <div class="lives">
         <span class="label">Starships:</span>
-        <span class="value"></span>
+        <span id="lives-value"></span>
       </div>
-      <div class="ingredients">
-        <span class="label">Ingredients:</span>
-        <span class="value"></span>
+      <div class="points">
+        <span class="label">Goodies:</span>
+        <span id="points-value"></span>
       </div>
     </footer>
     </main>
@@ -127,7 +127,11 @@ function startGame() {
 
 function endGame() {
   gameScreen.remove();
+  console.log("end game function!", game.player.points);
   createGameOverScreen();
+  let pointsElement = document.body.querySelector("span");
+  pointsElement.textContent = game.player.points;
+  console.log(pointsElement);
 }
 
 /* loads assets */

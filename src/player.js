@@ -5,7 +5,8 @@ class Player {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
     this.lives = lives;
-    this.size = 20; //  this.width   this.height
+    this.points = 0;
+    this.size = 60; //  this.width   this.height
     this.x = Math.floor(this.canvas.width / 2);
     this.y = Math.floor(this.canvas.height / 2);
     this.xSpeed = 0;
@@ -73,7 +74,7 @@ class Player {
       img,
       this.x,
       this.y,
-      0.15,
+      0.3,
       (this.direction / 180) * Math.PI
     );
     if (this.boostersOn) {
