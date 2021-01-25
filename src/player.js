@@ -1,10 +1,10 @@
 "use strict";
 
 class Player {
-  constructor(canvas, starShips) {
+  constructor(canvas, lives) {
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
-    this.starShips = starShips;
+    this.lives = lives;
     this.size = 20; //  this.width   this.height
     this.x = Math.floor(this.canvas.width / 2);
     this.y = Math.floor(this.canvas.height / 2);
@@ -47,52 +47,27 @@ class Player {
   }
 
   fire() {
-    console.log("player fired!");
+    // console.log("player fired!");
     const firedBullet = new Bullets(this);
     this.bullets.push(firedBullet);
   }
 
-  // handleScreenCollision() {
-  //   const screenTop = 0;
-  //   const screenBottom = this.canvas.height;
+  removeLife() {
+    this.lives -= 1;
+  }
 
-  //   const playerTop = this.y;
-  //   const playerBottom = this.y + this.size;
-
-  //   if (playerBottom >= screenBottom) this.setDirection("up");
-  //   else if (playerTop <= screenTop) this.setDirection("down");
-  // }
-
-  // removeLife() {
-  //   this.lives -= 1;
-  // }
-
-  // didCollide(enemy) {
-  //   const playerLeft = this.x;
-  //   const playerRight = this.x + this.size;
-  //   const playerTop = this.y;
-  //   const playerBottom = this.y + this.size;
-
-  //   const enemyLeft = enemy.x;
-  //   const enemyRight = enemy.x + enemy.size;
-  //   const enemyTop = enemy.y;
-  //   const enemyBottom = enemy.y + enemy.size;
-
-  //   const crossLeft = enemyLeft <= playerRight && enemyLeft >= playerLeft;
-  //   const crossRight = enemyRight >= playerLeft && enemyRight <= playerRight;
-
-  //   const crossTop = enemyTop <= playerBottom && enemyTop >= playerTop;
-  //   const crossBottom = enemyBottom >= playerTop && enemyBottom <= playerBottom;
-
-  //   if ((crossLeft || crossRight) && (crossTop || crossBottom)) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
+  didCollide(obj) {
+    const centerX = this.x + this.size / 2;
+    const centerY = this.y + this.size / 2;
+    const objX = obj.x + obj.size / 2;
+    const objY = obj.y + obj.size / 2;
+    const minDist2 = (this.size / 2 + obj.size / 2) ** 2;
+    if (calcDist2(centerX, centerY, objX, objY) < minDist2) return true;
+    return false;
+  }
 
   draw() {
-    let img = this.boostersOn ? boosters : pizza;
+    let img = this.boostersOn ? images["boosters"] : images["pizza"];
     drawImageRotated(
       this.ctx,
       img,

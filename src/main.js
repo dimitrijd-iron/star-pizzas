@@ -142,9 +142,17 @@ basil = new Image();
 basil.src = "./img/basil.png";
 pineapple = new Image();
 pineapple.src = "./img/pineapple.png";
-
 boosters = new Image();
 boosters.src = "./img/boosters.png";
+
+const images = {
+  pizza: pizza,
+  boosters: boosters,
+  tomato: tomato,
+  mozzarella: mozzarella,
+  pineapple: pineapple,
+  basil: basil,
+};
 
 // credit: https://soundbible.com/1492-Rocket-Thrusters.html
 boostersSound = new Audio("./sound/rocket.mp3");

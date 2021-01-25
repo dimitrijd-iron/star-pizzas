@@ -1,12 +1,13 @@
 class Goodies {
-  constructor(canvas, type, x, y, speed) {
+  constructor(canvas, type, size, entryTensor) {
     this.type = type;
+    this.size = size;
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
-    this.size = 20;
-    this.x = canvas.width + 50;
-    this.y = y;
-    this.speed = speed;
+    this.x = entryTensor.x;
+    this.y = entryTensor.y;
+    this.speedX = entryTensor.speedX;
+    this.speedY = entryTensor.speedY;
   }
 
   draw() {
@@ -27,11 +28,12 @@ class Goodies {
         img = basil;
         break;
     }
-    this.ctx.drawImage(img, this.x, this.y, 60, 60);
+    this.ctx.drawImage(img, this.x, this.y, this.size, this.size);
     this.ctx.restore();
   }
 
   updatePosition() {
-    this.x = this.x - this.speed;
+    this.x = this.x + this.speedX;
+    this.y = this.y + this.speedY;
   }
 }

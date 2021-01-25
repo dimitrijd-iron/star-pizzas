@@ -1,8 +1,9 @@
 class Baddies {
-  constructor(canvas, entryTensor) {
+  constructor(canvas, type, size, entryTensor) {
+    this.type = type;
+    this.size = size;
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
-    this.size = 20;
     this.x = entryTensor.x;
     this.y = entryTensor.y;
     this.speedX = entryTensor.speedX;
@@ -11,7 +12,7 @@ class Baddies {
 
   draw() {
     this.ctx.save();
-    this.ctx.drawImage(pineapple, this.x, this.y, 140, 140);
+    this.ctx.drawImage(images[this.type], this.x, this.y, this.size, this.size);
     this.ctx.restore();
   }
 

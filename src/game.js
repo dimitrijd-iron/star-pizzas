@@ -1,5 +1,10 @@
 "use strict";
 
+function calcDist2(centerX, centerY, objX, objY) {
+  // console.log("reached calcDist2!");
+  return (centerX - objX) ** 2 + (centerY - objY) ** 2;
+}
+
 class Game {
   constructor() {
     this.canvas = undefined;
@@ -35,23 +40,20 @@ class Game {
     this.canvas.height = containerHeight;
 
     // Create the new Player - Cap Slice
-    this.player = new Player(this.canvas, 3);
+    this.player = new Player(this.canvas, 5);
 
     this.player.draw();
 
     function handleKeyDown(event) {
-      console.log(event.key);
+      // console.log(event.key);
       switch (event.key) {
         case "ArrowLeft":
-          console.log("positive rotation");
           this.player.setDirection(1);
           break;
         case "ArrowRight":
-          console.log("negative rotation");
           this.player.setDirection(-1);
           break;
         case "ArrowUp":
-          console.log("boosters on!");
           this.player.useBoosters();
           break;
         case "F":
@@ -64,7 +66,6 @@ class Game {
           // this.player.shieldsOn();
           break;
         default:
-          console.log("any other key");
       }
     }
 
@@ -77,8 +78,8 @@ class Game {
 
   filterByPosition(item) {
     // console.log("filtering by position");
-    if (item.x < 0 - 50 || item.x > game.canvas.width + 50) return false;
-    if (item.y < 0 - 50 || item.y > game.canvas.height + 50) return false;
+    if (item.x < 0 - 200 || item.x > game.canvas.width + 200) return false;
+    if (item.y < 0 - 200 || item.y > game.canvas.height + 200) return false;
     return true;
   }
 
@@ -91,12 +92,17 @@ class Game {
       // 1.1. Create new baddies - randomly
       if (Math.random() > 0.97) {
         const randomY = Math.random() * this.canvas.height;
-        const newBaddie = new Baddies(this.canvas, randomEntryTensor(this));
+        const newBaddie = new Baddies(
+          this.canvas,
+          "pineapple",
+          150,
+          randomEntryTensor(this)
+        );
         this.baddies.push(newBaddie);
       }
 
       // 1.1. Create new goodies - randomly
-      if (Math.random() > 0.97) {
+      if (Math.random() > 0.8 + 1) {
         const randomY = Math.random() * this.canvas.height;
         const randomType = Math.random();
         const goodiesType =
@@ -105,18 +111,18 @@ class Game {
             : randomType < 0.9
             ? "mozzarella"
             : "basil";
+        const goodieSize = 60;
         const newGoodie = new Goodies(
           this.canvas,
           goodiesType,
-          this.canvas.width + 50,
-          randomY,
-          5
+          goodieSize,
+          randomEntryTensor(this)
         );
         this.goodies.push(newGoodie);
       }
 
       //   // 1.2 Check if the player had hit any enemy
-      //   this.checkCollisions();
+      this.checkCollisions();
 
       // 1.3.1 Update the player and check the screen collision
       this.player.updatePosition();
@@ -170,28 +176,29 @@ class Game {
     loop();
   }
 
-  // checkCollisions() {
-  //   // .forEach .map .filter methods block the value of `this`
-  //   this.enemies.forEach(function (enemy) {
-  //     if (this.player.didCollide(enemy)) {
-  //       this.player.removeLife();
+  checkCollisions() {
+    // Check collision between Player and Baddies
+    this.baddies.forEach(function (baddie) {
+      if (this.player.didCollide(baddie)) {
+        this.player.removeLife();
+        console.log("this.player.lives", this.player.lives);
+        // Move the enemy off the screen, to the left
+        baddie.x = +100000;
+        if (this.player.lives <= 0) {
+          this.gameOver(); // TODO
+        }
+      }
+    }, this);
 
-  //       console.log("this.player.lives", this.player.lives);
-
-  //       // Move the enemy off the screen, to the left
-  //       enemy.x = 0 - enemy.size;
-
-  //       if (this.player.lives <= 0) {
-  //         this.gameOver(); // TODO
-  //       }
-  //     }
-  //   }, this);
-  // }
+    for (let baddie of this.baddies)
+      for (let bullet of this.player.bullets) {
+        if (bullet.didCollide(baddie)) baddie.x = +100000;
+      }
+  }
 
   gameOver() {
     this.gameIsOver = true;
     console.log("GAME OVER");
-
     // show the end game screen
     endGame();
   }
@@ -205,17 +212,35 @@ class Game {
 // helper function to generate an entry vector for goodies & baddies
 function randomEntryTensor(game) {
   // console.log(game);
-  const ray = Math.max(game.canvas.width, game.canvas.width) / 2 + 50;
-  const entryPointX =
-    Math.sin(Math.random() * 2 * Math.PI) * ray + game.canvas.width / 2;
-  const entryPointY =
-    Math.cos(Math.random() * 2 * Math.PI) * ray + game.canvas.height / 2;
-  const entrySpeedX = Math.random() * 2 + 1;
-  const entrySpeedY = Math.random() * 2 + 1;
+  const ray = Math.max(game.canvas.width, game.canvas.width) / 2 + 150;
+  const canvasCenterX = game.canvas.width / 2;
+  const canvasCenterY = game.canvas.height / 2;
+  const entryAngle = Math.random() * 2 * Math.PI;
+  const entryPointX = canvasCenterX + Math.sin(entryAngle) * ray;
+  const entryPointY = canvasCenterY + Math.cos(entryAngle) * ray;
+  const entrySpeedX = (Math.random() * 2 - 1) * 3;
+  const entrySpeedY = (Math.random() * 2 - 1) * 3;
   return {
     x: entryPointX,
     y: entryPointY,
     speedX: entrySpeedX,
     speedY: entrySpeedY,
   };
+}
+
+// to streamline code, move to shared didCollide function
+
+function didCollide(obj1, obj2) {
+  // expecting obj1 & obj2 to have x, y, and size attributes
+  const obj1CenterX = obj1.x + obj1.size / 2;
+  const obj1CenterY = obj1.y + obj1.size / 2;
+  const obj2CenterX = obj2.x + obj2.size / 2;
+  const obj2CenterY = obj2.y + obj2.size / 2;
+  const minDist2 = (obj1.size / 2 + obj2.size / 2) ** 2;
+  if (calcDist2(obj1.X, obj1.Y, obj2.X, obj2.Y) < minDist2) {
+    console.log("YESS!! COLL", obj1.x, obj1.y, obj2.x, obj2.y);
+    return true;
+  }
+  console.log("NO COLL", obj1.x, obj1.y, obj2.x, obj2.y);
+  return false;
 }
