@@ -1,71 +1,85 @@
 class Game {
   constructor() {
+    // canvas and canvas elements
     this.canvas = undefined;
     this.ctx = undefined;
+    this.gameScreen = undefined;
+
+    // entities
     this.goodies = [];
     this.baddies = [];
     this.bullets = [];
-    this.starBase = undefined;
     this.player = undefined;
+
+    this.entityList = ["player", "goodies", "baddies", "bullets"];
+
+    this.entityCollisions = [
+      ["baddies", "player"],
+      ["goodies", "player"],
+      ["baddies", "bullets"],
+    ];
+
+    this.keyEventToEntity = {
+      ArrowLeft: ["player"],
+      ArrowRight: ["player"],
+      ArrowUp: ["player"],
+      F: ["player"],
+      f: ["player"],
+      " ": ["player"],
+    };
+
+    // game status
     this.gameIsOver = false;
     this.score = 0;
-    this.gameScreen = undefined;
-    this.starShipsElement = undefined;
-    this.ingredientsElement = undefined;
+  }
+
+  //  Create the canvas, set dimensions and get the context
+  //  Expect .canva-container class to be available in DOM
+  createCanvas() {
+    this.canvas = document.querySelector("canvas");
+    const canvasContainer = document.querySelector(".canvas-container");
+    this.canvas.width = canvasContainer.clientWidth;
+    this.canvas.height = canvasContainer.clientHeight;
+    this.ctx = this.canvas.getContext("2d");
+  }
+
+  // key board event handler
+  handleKeyDown(event) {
+    console.log(event.key);
+    switch (event.key) {
+      case "ArrowLeft":
+        this.player.setDirection(1);
+        break;
+      case "ArrowRight":
+        this.player.setDirection(-1);
+        break;
+      case "ArrowUp":
+        this.player.useBoosters();
+        break;
+      case "F":
+      case "f":
+        this.player.fire();
+        break;
+      case "S":
+      case "s":
+        console.log("pizza shields up!");
+        // this.player.shieldsOn();
+        break;
+      default:
+    }
+  }
+
+  //  Create the event handlers
+  createEventHandlers() {
+    console.log("creating handlers");
+    const boundHandleKeyDown = this.handleKeyDown.bind(this);
+    document.body.addEventListener("keydown", boundHandleKeyDown);
   }
 
   start() {
-    const canvasContainer = document.querySelector(".canvas-container");
-
-    // Get and create the canvas context
-    this.canvas = document.querySelector("canvas");
-    this.ctx = this.canvas.getContext("2d");
-
-    // Save reference to the score and lives elements
-    this.starShipsElement = document.querySelector(".starships .value");
-    this.ingredientsElement = document.querySelector(".ingredients .value");
-
-    // Set the canvas dimensions
-    const containerWidth = canvasContainer.clientWidth;
-    const containerHeight = canvasContainer.clientHeight;
-
-    this.canvas.width = containerWidth;
-    this.canvas.height = containerHeight;
-
-    // Create the new Player - Cap Slice
-    this.player = new Player(this.canvas, 3);
-
-    this.player.draw();
-
-    function handleKeyDown(event) {
-      // console.log(event.key);
-      switch (event.key) {
-        case "ArrowLeft":
-          this.player.setDirection(1);
-          break;
-        case "ArrowRight":
-          this.player.setDirection(-1);
-          break;
-        case "ArrowUp":
-          this.player.useBoosters();
-          break;
-        case "F":
-        case "f":
-          this.player.fire();
-          break;
-        case "S":
-        case "s":
-          console.log("pizza shields up!");
-          // this.player.shieldsOn();
-          break;
-        default:
-      }
-    }
-
-    const boundHandleKeyDown = handleKeyDown.bind(this);
-    document.body.addEventListener("keydown", boundHandleKeyDown);
-
-    // Start the loop using requestAnimationFrame()
+    this.createCanvas();
+    this.createEventHandlers();
+    this.player = new Player(this.canvas, 5);
     this.startLoop();
   }
 
@@ -170,20 +184,6 @@ class Game {
   }
 
   checkCollisions() {
-    // Check collision between Player and Baddies
-    // this.baddies.forEach(function (baddie) {
-    //   // if (this.player.didCollide(baddie)) {
-    //   if (didCollide(this.player, baddie)) {
-    //     this.player.removeLife();
-    //     console.log("this.player.lives", this.player.lives);
-    //     // Move the enemy off the screen, to the left
-    //     baddie.x = +100000;
-    //     if (this.player.lives <= 0) {
-    //       this.gameOver();
-    //     }
-    //   }
-    // }, this);
-
     for (let baddie of this.baddies) {
       if (didCollide(this.player, baddie)) {
         this.player.removeLife();
