@@ -171,18 +171,28 @@ class Game {
 
   checkCollisions() {
     // Check collision between Player and Baddies
-    this.baddies.forEach(function (baddie) {
-      // if (this.player.didCollide(baddie)) {
+    // this.baddies.forEach(function (baddie) {
+    //   // if (this.player.didCollide(baddie)) {
+    //   if (didCollide(this.player, baddie)) {
+    //     this.player.removeLife();
+    //     console.log("this.player.lives", this.player.lives);
+    //     // Move the enemy off the screen, to the left
+    //     baddie.x = +100000;
+    //     if (this.player.lives <= 0) {
+    //       this.gameOver();
+    //     }
+    //   }
+    // }, this);
+
+    for (let baddie of this.baddies) {
       if (didCollide(this.player, baddie)) {
         this.player.removeLife();
-        console.log("this.player.lives", this.player.lives);
-        // Move the enemy off the screen, to the left
         baddie.x = +100000;
         if (this.player.lives <= 0) {
           this.gameOver();
         }
       }
-    }, this);
+    }
 
     for (let baddie of this.baddies)
       for (let bullet of this.player.bullets) {
