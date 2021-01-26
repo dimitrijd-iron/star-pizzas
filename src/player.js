@@ -18,11 +18,26 @@ class Player {
     this.boostersOn = false;
     this.boosterTimer = undefined;
     this.bullets = [];
+    this.messageActions = {
+      ArrowLeft: this.setDirectionLeft,
+      ArrowRight: this.setDirectionRight,
+      ArrowUp: this.useBoosters,
+      F: this.fire,
+      f: this.fire,
+    };
   }
 
   setDirection(directionChange) {
     this.direction -= directionChange * this.rotationStep + 360;
     this.direction %= 360;
+  }
+
+  setDirectionLeft() {
+    this.setDirection(1);
+  }
+
+  setDirectionRight() {
+    setDirection(-1);
   }
 
   updatePosition() {
@@ -71,5 +86,25 @@ class Player {
       boostersSound.play();
       this.boosterTimer = setTimeout(() => (this.boostersOn = false), 1000);
     }
+  }
+
+  message(event) {
+    switch (event.key) {
+      case "ArrowLeft":
+        this.setDirection(+1);
+        break;
+      case "ArrowRight":
+        this.setDirection(-1);
+        break;
+      case "ArrowUp":
+        this.useBoosters();
+        break;
+      case "F":
+      case "f":
+        this.fire();
+        break;
+      default:
+    }
+    return;
   }
 }

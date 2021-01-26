@@ -9,8 +9,6 @@ class Bullets {
       player.xSpeed + 6 * Math.sin((player.direction / 180) * Math.PI);
     this.ySpeed =
       player.ySpeed - 6 * Math.cos((player.direction / 180) * Math.PI);
-
-    console.log("bullet", this.x, this.y, this.xSpeed, this.ySpeed);
   }
 
   draw() {

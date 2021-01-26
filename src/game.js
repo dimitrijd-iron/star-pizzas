@@ -24,7 +24,7 @@ class Game {
       ArrowRight: ["player"],
       ArrowUp: ["player"],
       F: ["player"],
-      f: ["player"],
+      f: ["player", "player"],
       " ": ["player"],
     };
 
@@ -43,35 +43,14 @@ class Game {
     this.ctx = this.canvas.getContext("2d");
   }
 
-  // key board event handler
+  // Key board event handler
   handleKeyDown(event) {
-    console.log(event.key);
-    switch (event.key) {
-      case "ArrowLeft":
-        this.player.setDirection(1);
-        break;
-      case "ArrowRight":
-        this.player.setDirection(-1);
-        break;
-      case "ArrowUp":
-        this.player.useBoosters();
-        break;
-      case "F":
-      case "f":
-        this.player.fire();
-        break;
-      case "S":
-      case "s":
-        console.log("pizza shields up!");
-        // this.player.shieldsOn();
-        break;
-      default:
-    }
+    let msg = event.key;
+    for (let entity of this.keyEventToEntity[msg]) this[entity].message(event);
   }
 
-  //  Create the event handlers
+  //  Bind the event handlers
   createEventHandlers() {
-    console.log("creating handlers");
     const boundHandleKeyDown = this.handleKeyDown.bind(this);
     document.body.addEventListener("keydown", boundHandleKeyDown);
   }
@@ -205,7 +184,6 @@ class Game {
     for (let goodie of this.goodies) {
       if (didCollide(this.player, goodie)) {
         let points;
-        console.log(goodie);
         switch (goodie.type) {
           case "mozzarella":
             points = 10;
@@ -218,7 +196,6 @@ class Game {
             break;
             defualt: alert("unknown goodie!!");
         }
-        console.log("got ", points, " points!");
         this.player.points += points;
         goodie.x = +100000;
       }
