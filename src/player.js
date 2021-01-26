@@ -57,16 +57,6 @@ class Player {
     this.lives -= 1;
   }
 
-  didCollide(obj) {
-    const centerX = this.x + this.size / 2;
-    const centerY = this.y + this.size / 2;
-    const objX = obj.x + obj.size / 2;
-    const objY = obj.y + obj.size / 2;
-    const minDist2 = (this.size / 2 + obj.size / 2) ** 2;
-    if (calcDist2(centerX, centerY, objX, objY) < minDist2) return true;
-    return false;
-  }
-
   draw() {
     let img = this.boostersOn ? images["boosters"] : images["pizza"];
     drawImageRotated(
@@ -82,12 +72,4 @@ class Player {
       this.boosterTimer = setTimeout(() => (this.boostersOn = false), 1000);
     }
   }
-}
-
-function drawImageRotated(ctx, img, x, y, scale, rot) {
-  // Credit: https://stackoverflow.com/a/50052594
-  ctx.setTransform(scale, 0, 0, scale, x, y);
-  ctx.rotate(rot);
-  ctx.drawImage(img, -img.width / 2, -img.height / 2);
-  ctx.setTransform(1, 0, 0, 1, 0, 0);
 }

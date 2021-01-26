@@ -21,14 +21,6 @@ let pineapple;
 let boosters;
 let boostersSound;
 
-// Helper function used to create DOM elements out of a string
-function buildDom(htmlString) {
-  const tempDiv = document.createElement("div");
-  tempDiv.innerHTML = htmlString;
-  const result = tempDiv.children[0];
-  return result;
-}
-
 /* 
  -- splash (start) screen
     low priority
@@ -50,14 +42,7 @@ function removeSplashScreen() {
   splashScreen.remove();
 }
 
-/* 
- -- splash (start) screen
-
- high priority
-  - make it round
-  - with crust!
-
-*/
+// splash (start) screen
 
 function createGameScreen() {
   gameScreen = buildDom(`

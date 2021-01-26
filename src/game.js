@@ -1,10 +1,3 @@
-"use strict";
-
-function calcDist2(centerX, centerY, objX, objY) {
-  // console.log("reached calcDist2!");
-  return (centerX - objX) ** 2 + (centerY - objY) ** 2;
-}
-
 class Game {
   constructor() {
     this.canvas = undefined;
@@ -179,7 +172,8 @@ class Game {
   checkCollisions() {
     // Check collision between Player and Baddies
     this.baddies.forEach(function (baddie) {
-      if (this.player.didCollide(baddie)) {
+      // if (this.player.didCollide(baddie)) {
+      if (didCollide(this.player, baddie)) {
         this.player.removeLife();
         console.log("this.player.lives", this.player.lives);
         // Move the enemy off the screen, to the left
@@ -192,14 +186,14 @@ class Game {
 
     for (let baddie of this.baddies)
       for (let bullet of this.player.bullets) {
-        if (bullet.didCollide(baddie)) {
+        if (didCollide(bullet, baddie)) {
           baddie.x = 100000;
           bullet.x = 100000;
         }
       }
 
     for (let goodie of this.goodies) {
-      if (this.player.didCollide(goodie)) {
+      if (didCollide(this.player, goodie)) {
         let points;
         console.log(goodie);
         switch (goodie.type) {
@@ -233,40 +227,4 @@ class Game {
     let pointsElement = document.getElementById("points-value");
     pointsElement.textContent = "0000" + this.player.points;
   }
-}
-
-// helper function to generate an entry vector for goodies & baddies
-function randomEntryTensor(game) {
-  // console.log(game);
-  const ray = Math.max(game.canvas.width, game.canvas.width) / 2 + 150;
-  const canvasCenterX = game.canvas.width / 2;
-  const canvasCenterY = game.canvas.height / 2;
-  const entryAngle = Math.random() * 2 * Math.PI;
-  const entryPointX = canvasCenterX + Math.sin(entryAngle) * ray;
-  const entryPointY = canvasCenterY + Math.cos(entryAngle) * ray;
-  const entrySpeedX = (Math.random() * 2 - 1) * 3;
-  const entrySpeedY = (Math.random() * 2 - 1) * 3;
-  return {
-    x: entryPointX,
-    y: entryPointY,
-    speedX: entrySpeedX,
-    speedY: entrySpeedY,
-  };
-}
-
-// to streamline code, move to shared didCollide function
-
-function didCollide(obj1, obj2) {
-  // expecting obj1 & obj2 to have x, y, and size attributes
-  const obj1CenterX = obj1.x + obj1.size / 2;
-  const obj1CenterY = obj1.y + obj1.size / 2;
-  const obj2CenterX = obj2.x + obj2.size / 2;
-  const obj2CenterY = obj2.y + obj2.size / 2;
-  const minDist2 = (obj1.size / 2 + obj2.size / 2) ** 2;
-  if (calcDist2(obj1.X, obj1.Y, obj2.X, obj2.Y) < minDist2) {
-    console.log("YESS!! COLL", obj1.x, obj1.y, obj2.x, obj2.y);
-    return true;
-  }
-  console.log("NO COLL", obj1.x, obj1.y, obj2.x, obj2.y);
-  return false;
 }
