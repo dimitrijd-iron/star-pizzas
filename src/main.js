@@ -23,8 +23,47 @@ let boostersSound;
 let stars;
 
 /* 
+
+   initial storyline
+
+*/
+
+function createStoryScreen() {
+  splashScreen = buildDom(`
+    <main class="splash container">
+      <div class="fade"></div>
+
+      <section class="star-wars">
+      
+        <div class="crawl">
+      
+          <div class="title">
+            <p>Star Pizzas</p>
+            <h1>The Revenge of the</h1>
+            <h1>Pinapples</h1>
+          </div>
+          <br>
+          <p>In a restaurant very very close, no more than a few minutes ago somebody put pineapples on a PIZZA!</p>
+          <br><br>
+          <p>Cpt. Slice, a brave chef from IronStar, is on a life-risking misssiong to save the people from bad pizzas and restore freedom to the galaxy…</p>
+      
+        </div>
+      
+      </section>
+
+      <canvas></canvas>
+    </div>
+    </main>
+  `);
+  document.body.appendChild(splashScreen);
+}
+
+function removeSplashScreen() {
+  splashScreen.remove();
+}
+
+/* 
  -- splash (start) screen
-    low priority
  */
 
 function createSplashScreen() {
@@ -151,4 +190,6 @@ const images = {
 boostersSound = new Audio("./sound/rocket.mp3");
 
 // Run the function once all of the resources are loaded
-window.addEventListener("load", createSplashScreen);
+// window.addEventListener("load", createSplashScreen);
+
+window.addEventListener("load", createStoryScreen);
