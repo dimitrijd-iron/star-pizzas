@@ -30,7 +30,6 @@ class Game {
 
     // game status
     this.gameIsOver = false;
-    this.score = 0;
   }
 
   //  Create the canvas, set dimensions and get the context
@@ -41,6 +40,7 @@ class Game {
     this.canvas.width = canvasContainer.clientWidth;
     this.canvas.height = canvasContainer.clientHeight;
     this.ctx = this.canvas.getContext("2d");
+    this.ctx.drawImage(stars, 0, 0, this.canvas.width, this.canvas.height);
   }
 
   // Key board event handler
@@ -63,7 +63,6 @@ class Game {
   }
 
   filterByPosition(item) {
-    // console.log("filtering by position");
     if (item.x < 0 - 200 || item.x > game.canvas.width + 200) return false;
     if (item.y < 0 - 200 || item.y > game.canvas.height + 200) return false;
     return true;
@@ -71,10 +70,6 @@ class Game {
 
   startLoop() {
     const loop = function () {
-      // 1. UPDATE THE STATE OF PLAYER AND ENEMIES
-      //   this.score += 5;
-      this.updateGameStats();
-
       // 1.1. Create new baddies - randomly
       if (Math.random() > 0.97) {
         const randomY = Math.random() * this.canvas.height;
@@ -130,6 +125,14 @@ class Game {
 
       // 2. CLEAR THE CANVAS - clear the previous frame
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.ctx.drawImage(stars, 0, 0, this.canvas.width, this.canvas.height);
+      this.ctx.font = "12px Arial";
+      this.ctx.fillStyle = "red";
+      this.ctx.fillText(
+        `Lives: ${this.player.lives}  Points: ${this.player.points}`,
+        10,
+        this.canvas.height - 10
+      );
 
       // 3. DRAW - UPDATE THE CANVAS
       // 3.1 Draw the player
@@ -206,12 +209,5 @@ class Game {
     this.gameIsOver = true;
     console.log("GAME OVER");
     endGame();
-  }
-
-  updateGameStats() {
-    let livesElement = document.getElementById("lives-value");
-    livesElement.textContent = " " + this.player.lives + " ";
-    let pointsElement = document.getElementById("points-value");
-    pointsElement.textContent = "0000" + this.player.points;
   }
 }

@@ -20,6 +20,7 @@ let basil;
 let pineapple;
 let boosters;
 let boostersSound;
+let stars;
 
 /* 
  -- splash (start) screen
@@ -50,16 +51,6 @@ function createGameScreen() {
       <div class="canvas-container">
         <canvas></canvas>
       </div>
-      <footer>
-      <div class="lives">
-        <span class="label">Starships:</span>
-        <span id="lives-value"></span>
-      </div>
-      <div class="points">
-        <span class="label">Goodies:</span>
-        <span id="points-value"></span>
-      </div>
-    </footer>
     </main>
   `);
 
@@ -133,6 +124,8 @@ pineapple = new Image();
 pineapple.src = "./img/pineapple.png";
 boosters = new Image();
 boosters.src = "./img/boosters.png";
+stars = new Image();
+stars.src = "./img/stars.jpg";
 
 const images = {
   pizza: pizza,
@@ -141,6 +134,7 @@ const images = {
   mozzarella: mozzarella,
   pineapple: pineapple,
   basil: basil,
+  stars: stars,
 };
 
 // credit: https://soundbible.com/1492-Rocket-Thrusters.html
