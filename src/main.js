@@ -2,7 +2,7 @@
 
 /*
 author: github.com/iron-dimitrijd
-license: GNU-GPL 3.0
+all rights and lefts reserved
 */
 
 // source organization, credit and thanks:
@@ -83,9 +83,6 @@ function createSplashScreen() {
   document.body.appendChild(splashScreen);
   const canvasEl = document.querySelector("canvas");
   const canvasContainer = document.querySelector(".canvas-container");
-  // canvasEl.width = document.body.clientWidth;
-  // canvasEl.height = document.body.clientHeight;
-
   canvasEl.width = canvasContainer.clientWidth;
   canvasEl.height = canvasContainer.clientHeight;
 
@@ -94,10 +91,10 @@ function createSplashScreen() {
 
   ctx.drawImage(
     mission,
-    canvasEl.width / 2 - 200,
-    canvasEl.height / 2 - 200,
-    400,
-    400
+    canvasEl.width / 2 - 225,
+    canvasEl.height / 2 - 225,
+    450,
+    450
   );
 
   canvasEl.addEventListener("click", startGame);
@@ -167,6 +164,7 @@ function startGame() {
 
 function endGame() {
   gameScreen.remove();
+
   console.log("end game function!", game.player.points);
   createGameOverScreen();
   let pointsElement = document.body.querySelector("span");
@@ -177,21 +175,21 @@ function endGame() {
 /* loads assets */
 // image credits: unknown
 pizza = new Image();
-pizza.src = "./img/pizza-starship.png";
+pizza.src = "img/pizza-starship.png";
 mozzarella = new Image();
-mozzarella.src = "./img/mozzarella.png";
+mozzarella.src = "img/mozzarella.png";
 tomato = new Image();
-tomato.src = "./img/tomato.png";
+tomato.src = "img/tomato.png";
 basil = new Image();
-basil.src = "./img/basil.png";
+basil.src = "img/basil.png";
 pineapple = new Image();
-pineapple.src = "./img/pineapple.png";
+pineapple.src = "img/pineapple.png";
 boosters = new Image();
-boosters.src = "./img/boosters.png";
+boosters.src = "img/boosters.png";
 stars = new Image();
-stars.src = "./img/stars.jpg";
+stars.src = "img/stars.jpg";
 mission = new Image();
-mission.src = "./img/mission.png";
+mission.src = "img/mission.png";
 
 const images = {
   pizza: pizza,
@@ -205,7 +203,7 @@ const images = {
 };
 
 // credit: https://soundbible.com/1492-Rocket-Thrusters.html
-boostersSound = new Audio("./sound/rocket.mp3");
+boostersSound = new Audio("sound/rocket.mp3");
 
 // Run the function once all of the resources are loaded
 // window.addEventListener("load", createSplashScreen);
