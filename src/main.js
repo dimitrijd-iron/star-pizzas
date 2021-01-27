@@ -46,10 +46,10 @@ function createStoryScreen() {
           <div class="title">
             <p>Star Pizzas</p>
             <h1>The Revenge of the</h1>
-            <h1>Pinapples</h1>
+            <h1>Pineapples</h1>
           </div>
           <br>
-          <p>In a restaurant very very close, no more than a few minutes ago somebody put pineapples on a PIZZA!</p>
+          <p>In a restaurant very very close, no more than a few minutes ago, somebody put pineapples on a PIZZA!</p>
           <br><br>
           <p>Cpt. Slice, a brave chef from IronStar, is on a life-risking misssion to save the people from bad pizzas and restore freedom to the galaxy…</p>
       
@@ -132,13 +132,16 @@ function createGameOverScreen() {
       <h2>Your score: ${game.player.points}</h2>
       <h2>${game.player.points >= 50 ? "You MADE it!" : "Try Again!"}</h2>
       <span><img src=${
-        game.player.points >= 50
+        game.player.points >= 0
           ? "img/pizza-prize.png"
-          : "img/pineapple-pizza.png"
+          : "img/pineapple-pizza.png width='300px'"
       }></img></span>
       <h2><button>Restart</button></div></h2>
   	</main>
   `);
+
+  // let imgEl = gameOverScreen.querySelector("img");
+  // imgEl.size = "200px";
 
   document.body.appendChild(gameOverScreen);
   const restartButton = gameOverScreen.querySelector("button");

@@ -7,6 +7,8 @@ Yet Another Collision Game... ...with a Fresh Take from the Oven!
 *In a restaurant very very close, no more than a few minutes ago somebody put pineapples on a PIZZA!
 Cpt. Slice, a brave chef from IronStar, is on a life-risking misssion to save the people from bad pizzas and restore freedom to the galaxy*.
 
+[Pizza!](https://github.com/dimitrijd-iron/star-pizzas/blob/master/img/pizza-prize.png)
+
 ## Cpt Slice Mission:
 - get basil, mozzarella and tomato!
 - avoid the pineapples!
@@ -56,5 +58,6 @@ Game class manages:
 Wireframes in Miro [Miro](https://miro.com/app/board/o9J_lX36If8=/) 
 
 ### Slides
-[Google Doc public slides](https://docs.google.com/presentation/d/1yvI4v5E-aEjLbRJ4KNFUixbmJoJipNTyYwl6yWh9FoQ/edit?usp=sharinga)
+[Pres in pdf](https://github.com/dimitrijd-iron/star-pizzas/blob/master/doc/StarPizzasPres.pdf)
+
 
