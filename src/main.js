@@ -29,16 +29,26 @@ let stars;
 
 function createSplashScreen() {
   splashScreen = buildDom(`
-    <main>
-      <h1>Star Pizzas</h1>
-      <button>Start Baking</button>
+    <main class="splash container">
+      <div class="canvas-container">
+      <canvas></canvas>
+    </div>
     </main>
   `);
   document.body.appendChild(splashScreen);
-  const startButton = splashScreen.querySelector("button");
-  // make it a pizza!
-  startButton.addEventListener("click", startGame);
+  const canvasEl = document.querySelector("canvas");
+  const canvasContainer = document.querySelector(".canvas-container");
+  // canvasEl.width = document.body.clientWidth;
+  // canvasEl.height = document.body.clientHeight;
+
+  canvasEl.width = canvasContainer.clientWidth;
+  canvasEl.height = canvasContainer.clientHeight;
+
+  let ctx = canvasEl.getContext("2d");
+  ctx.drawImage(stars, 0, 0, canvasEl.width, canvasEl.height);
+  canvasEl.addEventListener("click", startGame);
 }
+
 function removeSplashScreen() {
   splashScreen.remove();
 }

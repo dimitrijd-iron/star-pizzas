@@ -40,43 +40,23 @@ body {
 
 @media (min-width: 768px) {
   .container {
-    max-width: 2500px; /* Resizes the container to 728px for large screens */
+    max-width: 2500px;
     margin: 0 auto;
   }
 }
 
 /* ---- components ---- */
 
-.game {
+.game,
+.splash {
   text-align: center;
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-.game footer {
-  height: 50px;
-  display: flex;
-  align-items: left;
-}
-
-.game .star-ships {
-  width: 50%;
-}
-
-.game .ingredients {
-  width: 50%;
-}
-
-.game .label {
-  font-weight: bold;
-}
-
-.game .value {
-  font-style: italic;
-}
-
-.game .canvas-container {
+.game .canvas-container,
+.splash .canvas-container {
   height: 100%;
   border: solid 4px red;
 }
