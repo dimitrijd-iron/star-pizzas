@@ -7,7 +7,7 @@ Yet Another Collision Game... ...with a Fresh Take from the Oven!
 *In a restaurant very very close, no more than a few minutes ago somebody put pineapples on a PIZZA!
 Cpt. Slice, a brave chef from IronStar, is on a life-risking misssion to save the people from bad pizzas and restore freedom to the galaxy*.
 
-[Pizza!](https://github.com/dimitrijd-iron/star-pizzas/blob/master/img/pizza-prize.png)
+[Pizza!](https://github.com/dimitrijd-iron/star-pizzas/blob/master/img/pizza-prize.png?raw=true)
 
 ## Cpt Slice Mission:
 - get basil, mozzarella and tomato!
