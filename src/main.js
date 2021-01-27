@@ -12,6 +12,7 @@ let game; // store instance of the current Game
 let splashScreen; // Start Game Screen - element reference
 let gameScreen; // Game Screen - element reference
 let gameOverScreen; //  Game Over Screen - element reference
+let storyScreen;
 let cnt = 0;
 let pizza;
 let mozzarella;
@@ -21,6 +22,7 @@ let pineapple;
 let boosters;
 let boostersSound;
 let stars;
+let mission;
 
 /* 
 
@@ -28,8 +30,12 @@ let stars;
 
 */
 
+function removeStoryScreen() {
+  storyScreen.remove();
+}
+
 function createStoryScreen() {
-  splashScreen = buildDom(`
+  storyScreen = buildDom(`
     <main class="splash container">
       <div class="fade"></div>
 
@@ -55,7 +61,7 @@ function createStoryScreen() {
     </div>
     </main>
   `);
-  document.body.appendChild(splashScreen);
+  document.body.appendChild(storyScreen);
 }
 
 function removeSplashScreen() {
@@ -85,6 +91,15 @@ function createSplashScreen() {
 
   let ctx = canvasEl.getContext("2d");
   ctx.drawImage(stars, 0, 0, canvasEl.width, canvasEl.height);
+
+  ctx.drawImage(
+    mission,
+    canvasEl.width / 2 - 200,
+    canvasEl.height / 2 - 200,
+    400,
+    400
+  );
+
   canvasEl.addEventListener("click", startGame);
 }
 
@@ -175,6 +190,8 @@ boosters = new Image();
 boosters.src = "./img/boosters.png";
 stars = new Image();
 stars.src = "./img/stars.jpg";
+mission = new Image();
+mission.src = "./img/mission.png";
 
 const images = {
   pizza: pizza,
@@ -184,6 +201,7 @@ const images = {
   pineapple: pineapple,
   basil: basil,
   stars: stars,
+  mission: mission,
 };
 
 // credit: https://soundbible.com/1492-Rocket-Thrusters.html
@@ -193,3 +211,8 @@ boostersSound = new Audio("./sound/rocket.mp3");
 // window.addEventListener("load", createSplashScreen);
 
 window.addEventListener("load", createStoryScreen);
+
+setTimeout(function () {
+  removeStoryScreen();
+  createSplashScreen();
+}, 25000);
