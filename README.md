@@ -1,47 +1,59 @@
-# Star Pizzas
+# Star Pizzas - The Revenge of the Pineapples
 
 ## Description
-Asteroids arcade game 
+Asteroids arcade meets pizza!
+Yet Another Collision Game... ...with a Fresh Take from the Oven!
+
+*In a restaurant very very close, no more than a few minutes ago somebody put pineapples on a PIZZA!
+Cpt. Slice, a brave chef from IronStar, is on a life-risking misssion to save the people from bad pizzas and restore freedom to the galaxy*.
+
+## Cpt Slice Mission:
+- get basil, mozzarella and tomato!
+- avoid the pineapples!
+- save the pizzas (and the galaxy!)
 
 
 ## MVP (DOM - CANVAS)
-
+- Player can move in a 2D environment 
+- Toy-physics with acceleration and inertia Player can shoot
+- Gain points by hitting a class of “goodies” 
+- Lose lives by hitting the “baddies”, aka pineapples
 
 ## Backlog
-
+- Add more recipes / themes
+- Add animations
+- Add PizzaBase with tricky landing mini-game Complete game refactoring
 
 ## Data structure
-Classes and methods definition.
 
+Five classes: Game, Player, Goodies, Baddies & Bullets
 
-## States y States Transitions
+Game class manages:
 
-Definition of the different states and their transition (transition functions)
-- splashScreen
-- gameScreen
-- gameoverScreen
-- winScreen
+- collision check (player, NPC, bullets) ]
+- objects life cycle (creation, deletion) i
+- user events
+- game loop
+- game over status
 
-## Task
+## Backlog 
 
-Task definition in order of priority
-
+- Add more recipes / themes
+- Add animations
+- Add PizzaBase with tricky landing mini-game 
+- Complete game refactoring
 
 ## Links
 
-
 ### Trello
  [Trello](https://trello.com/b/YHNg1fm3/star-pizzas) (team only)
-
 
 ### Git
 [Repo](http://github.com/dimitrijd-iron/star-pizzas)
 [App](http://dimitrijd-iron.github.io/star-pizzas/)
 
-
 ## Wireframes
 Wireframes in Miro [Miro](https://miro.com/app/board/o9J_lX36If8=/) 
-
 
 ### Slides
 [Google Doc public slides](https://docs.google.com/presentation/d/1yvI4v5E-aEjLbRJ4KNFUixbmJoJipNTyYwl6yWh9FoQ/edit?usp=sharinga)
