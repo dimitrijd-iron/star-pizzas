@@ -61,6 +61,19 @@ body {
   border: solid 4px red;
 }
 
+.game-over-screen {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  height: 200px;
+  color: #feda4a;
+  font-family: "Pathway Gothic One", sans-serif;
+  font-size: 200%;
+  font-weight: 600;
+  letter-spacing: 6px;
+  line-height: 80%;
+}
+
 /* ---- StarWars ---- */
 body {
   width: 100%;

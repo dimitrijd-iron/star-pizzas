@@ -51,7 +51,7 @@ function createStoryScreen() {
           <br>
           <p>In a restaurant very very close, no more than a few minutes ago somebody put pineapples on a PIZZA!</p>
           <br><br>
-          <p>Cpt. Slice, a brave chef from IronStar, is on a life-risking misssiong to save the people from bad pizzas and restore freedom to the galaxy…</p>
+          <p>Cpt. Slice, a brave chef from IronStar, is on a life-risking misssion to save the people from bad pizzas and restore freedom to the galaxy…</p>
       
         </div>
       
@@ -127,10 +127,16 @@ function removeGameScreen() {
 
 function createGameOverScreen() {
   gameOverScreen = buildDom(`
-    <main>
-  		<h1>Game over</h1>
-  		<p>Your score: <span></span></p>
-  		<button>Restart</button>
+    <main class="game-over-screen">
+      <h1>Game over</h1>
+      <h2>Your score: ${game.player.points}</h2>
+      <h2>${game.player.points >= 50 ? "You MADE it!" : "Try Again!"}</h2>
+      <span><img src=${
+        game.player.points >= 50
+          ? "img/pizza-prize.png"
+          : "img/pineapple-pizza.png"
+      }></img></span>
+      <h2><button>Restart</button></div></h2>
   	</main>
   `);
 
@@ -164,12 +170,7 @@ function startGame() {
 
 function endGame() {
   gameScreen.remove();
-
-  console.log("end game function!", game.player.points);
   createGameOverScreen();
-  let pointsElement = document.body.querySelector("span");
-  pointsElement.textContent = game.player.points;
-  console.log(pointsElement);
 }
 
 /* loads assets */

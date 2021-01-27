@@ -58,7 +58,7 @@ class Game {
   start() {
     this.createCanvas();
     this.createEventHandlers();
-    this.player = new Player(this.canvas, 2);
+    this.player = new Player(this.canvas, 1);
     this.startLoop();
   }
 
