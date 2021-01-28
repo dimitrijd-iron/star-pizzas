@@ -9,11 +9,17 @@ class Bullets {
       player.xSpeed + 6 * Math.sin((player.direction / 180) * Math.PI);
     this.ySpeed =
       player.ySpeed - 6 * Math.cos((player.direction / 180) * Math.PI);
+    this.soundOn = true;
+    this.soundTimer = undefined;
   }
 
   draw() {
     this.ctx.fillStyle = "#FF6F27";
     this.ctx.fillRect(this.x, this.y, this.size, this.size);
+    if (this.soundOn) {
+      laserSound.play();
+      this.soundTimer = setTimeout(() => (this.soundOn = false), 300);
+    }
   }
 
   updatePosition() {

@@ -20,9 +20,11 @@ let tomato;
 let basil;
 let pineapple;
 let boosters;
-let boostersSound;
 let stars;
 let mission;
+
+let boostersSound;
+let laserSound;
 
 /* 
 
@@ -208,6 +210,9 @@ const images = {
 
 // credit: https://soundbible.com/1492-Rocket-Thrusters.html
 boostersSound = new Audio("sound/rocket.mp3");
+
+// credit: https://www.fesliyanstudios.com/play-mp3/5462
+laserSound = new Audio("sound/laser.mp3");
 
 // Run the function once all of the resources are loaded
 // window.addEventListener("load", createSplashScreen);
