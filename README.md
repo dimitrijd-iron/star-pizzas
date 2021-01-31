@@ -18,9 +18,10 @@ Yet Another Collision Game... ...with a Fresh Take from the Oven!
 ## MVP 
 
 - Player can move in a 2D environment
-- Toy-physics with acceleration and inertia Player can shoot
+- Toy-physics with acceleration and inertia 
 - Gain points by hitting a class of “goodies”
 - Lose lives by hitting the “baddies”, aka pineapples
+- Player can shoot the "baddies"
 
 ## Backlog
 
