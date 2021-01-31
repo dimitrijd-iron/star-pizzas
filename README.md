@@ -50,7 +50,7 @@ Game class manages:
 ## Links
 
 | Trello        | Miro | Repo     | Pres   | App |
-| :------------- | :---------- | :----------- |----------- |
+| :------------- | :---------- | :----------- |----------- | ----------- | 
 | [Trello](https://trello.com/b/YHNg1fm3/star-pizzas) (team only) |  [Miro](https://miro.com/app/board/o9J_lX36If8=/) | [Repo](http://github.com/dimitrijd-iron/star-pizzas) | [Pres in pdf](https://github.com/dimitrijd-iron/star-pizzas/blob/master/doc/StarPizzasPres.pdf)| [App](http://dimitrijd-iron.github.io/star-pizzas/) |
  
 
