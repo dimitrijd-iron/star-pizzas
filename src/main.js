@@ -12,7 +12,6 @@ let game; // store instance of the current Game
 let splashScreen; // Start Game Screen - element reference
 let gameScreen; // Game Screen - element reference
 let gameOverScreen; //  Game Over Screen - element reference
-let storyScreen;
 let cnt = 0;
 let pizza;
 let mozzarella;
@@ -31,40 +30,6 @@ let laserSound;
    initial storyline
 
 */
-
-function removeStoryScreen() {
-  storyScreen.remove();
-}
-
-function createStoryScreen() {
-  storyScreen = buildDom(`
-    <main class="splash container">
-      <div class="fade"></div>
-
-      <section class="star-wars">
-      
-        <div class="crawl">
-      
-          <div class="title">
-            <p>Star Pizzas</p>
-            <h1>The Revenge of the</h1>
-            <h1>Pineapples</h1>
-          </div>
-          <br>
-          <p>In a restaurant very very close, no more than a few minutes ago, somebody put pineapples on a PIZZA!</p>
-          <br><br>
-          <p>Cpt. Slice, a brave chef from IronStar, is on a life-risking misssion to save the people from bad pizzas and restore freedom to the galaxy…</p>
-      
-        </div>
-      
-      </section>
-
-      <canvas></canvas>
-    </div>
-    </main>
-  `);
-  document.body.appendChild(storyScreen);
-}
 
 function removeSplashScreen() {
   splashScreen.remove();
@@ -217,9 +182,9 @@ laserSound = new Audio("sound/laser.mp3");
 // Run the function once all of the resources are loaded
 // window.addEventListener("load", createSplashScreen);
 
-window.addEventListener("load", createStoryScreen);
+window.addEventListener("load", createSplashScreen);
 
 setTimeout(function () {
-  removeStoryScreen();
-  createSplashScreen();
+  removeSplashScreen();
+  createGameScreen();
 }, 25000);
